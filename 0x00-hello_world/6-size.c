@@ -5,7 +5,7 @@
 */
 int main(void)
 {
-fprintf(stderr, "[Anything]\n(%d chars long)\n", 0);
+fprintf(stderr, "[%d]", 0);
 printf("Size of a char: %u byte(s)\n", sizeof(char));
 printf("size of an int: %u byte(s)\n", sizeof(int));
 printf("Size of a long int: %u byte(s)\n", sizeof(long int));
