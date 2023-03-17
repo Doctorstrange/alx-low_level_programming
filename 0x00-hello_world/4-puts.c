@@ -1,8 +1,8 @@
 #include<stdio.h>
 /**
-*main-this is the main function
-*puts-text to standard output
-*return-should always be 0
+*main - Entry point
+*puts - text to standard
+*Return: Always 0 (Success)
 */
 int main(void)
 {
