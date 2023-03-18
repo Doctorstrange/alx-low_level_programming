@@ -15,6 +15,10 @@ if (i <= 56)
 putchar(',');
 putchar(' ');
 }
+else
+{
+putchar(' ');
+}
 }
 return (0);
 }
