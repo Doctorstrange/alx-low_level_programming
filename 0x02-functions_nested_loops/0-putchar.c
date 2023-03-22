@@ -9,8 +9,8 @@ int i;
 char spell[8] = "_putchar";
 for (i = 0; i < 8; i++)
 {
-putchar(spell[i]);
+_putchar(spell[i]);
 }
-putchar('\n');
+_putchar('\n');
 return (0);
 }
