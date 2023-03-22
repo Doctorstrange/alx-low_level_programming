@@ -1,6 +1,6 @@
 #include "main.h"
 /**
-* main - print all number 0-9
+* print_alphabet - declared entry point function returning 0
 * Return: Always 0 (Success)
 */
 void print_alphabet(void)
