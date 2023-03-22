@@ -12,5 +12,4 @@ for (i = 0; i < 26; i++)
 _putchar(spell[i]);
 }
 _putchar('\n');
-return (0);
 }
