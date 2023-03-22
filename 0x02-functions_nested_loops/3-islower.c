@@ -2,6 +2,7 @@
 /**
 * _islower - return 0 capital and small 1
 * Return: Always 0 (Success)
+* @c: checked character
 */
 int _islower(int c)
 {
