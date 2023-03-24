@@ -4,7 +4,7 @@
  * Return number 0-14 ten times
  */
 
-void print_numbers(void)
+void more_numbers(void)
 {
 int x;
 int y;
