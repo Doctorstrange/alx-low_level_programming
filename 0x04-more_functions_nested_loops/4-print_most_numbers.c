@@ -4,7 +4,7 @@
  * Return number 0-9 excluding 2,4
  */
 
-void print_numbers(void)
+void print_most_numbers(void)
 {
 int x;
 for (x = 0; x <= 9; x++)
