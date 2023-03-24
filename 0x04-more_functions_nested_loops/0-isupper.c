@@ -6,7 +6,7 @@
  *Return: 1 for upper and 0 for lower
  */
 
-int _isupper(int x);
+int _isupper(int x)
 {
 if (x >= 65 && x <= 90)
 {
