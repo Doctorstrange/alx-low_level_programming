@@ -6,7 +6,7 @@
  * Return result of multiplication
  */
 
-int mul(int x, int y);
+int mul(int x, int y)
 {
 return (x * y);
 }
