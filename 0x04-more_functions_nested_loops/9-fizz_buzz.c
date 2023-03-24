@@ -33,6 +33,6 @@ if (x != 100)
 printf(" ");
 }
 }
-Printf("\n");
+printf("\n");
 return (0);
 }
