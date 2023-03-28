@@ -13,7 +13,7 @@ char temp;
 
 while (s[x++])
 {
-y++
+y++;
 }
 
 for (x = y - 1; x >= y / 2; index--)
