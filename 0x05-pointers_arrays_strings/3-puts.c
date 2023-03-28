@@ -6,6 +6,7 @@
 * Return: nothing
 */
 void _puts(char *str)
+int str;
 while (*str != '\0')
 {
 _putchar(*str);
