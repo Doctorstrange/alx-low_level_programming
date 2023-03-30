@@ -13,12 +13,12 @@ x = 0;
 while (x < n && src[x] != '\0')
 {
 dest[x] = src[x];
-x++
+x++;
 }
-while (j < n)
+while (x < n)
 {
-dest[j] = '\0';
-j++;
+dest[x] = '\0';
+x++;
 }
 
 return (dest);
