@@ -4,7 +4,7 @@
  * @n: number to raise
  * @i: number to divide with
  * Return: returns zero
- * is_divisible: number that can divide the suspect
+ * is_divisible - number that can divide the suspect
  */
 int is_divisible(int n, int i)
 {
