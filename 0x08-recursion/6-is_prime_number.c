@@ -1,10 +1,9 @@
 #include "main.h"
 /**
- * is_prime_number - detect the prime
+ * is_divisible - checks if n is divisible by any number less than i
  * @n: number to raise
  * @i: number to divide with
  * Return: returns zero
- * is_divisible - number that can divide the suspect
  */
 int is_divisible(int n, int i)
 {
@@ -18,6 +17,14 @@ return (1);
 }
 return (is_divisible(n, i - 1));
 }
+
+/**
+ * is_prime_number - checks if a number is prime
+ *
+ * @n: the number to check
+ *
+ * Return: 1 if n is prime, otherwise 0
+ */
 
 int is_prime_number(int n)
 {
