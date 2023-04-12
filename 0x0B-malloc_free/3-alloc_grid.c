@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
- * lloc_grid - creates a char array an initializes with the value of c
+ * alloc_grid - creates a char array an initializes with the value of c
  * @width: first dee
  * @height: second dee
  * Return: the pointer to the location of the new string
@@ -26,7 +26,7 @@ twodee[x] = malloc(sizeof(int) * width);
 if (twodee[x] == NULL)
 {
 for (; x >= 0; x--)
-  free(twodee[x]);
+free(twodee[x]);
 
 free(twodee);
 return (NULL);
