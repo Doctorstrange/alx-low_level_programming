@@ -7,13 +7,13 @@
  * @height: second dee
  * Return: zero
  */
-void free_grid(int **grid, int height);
+void free_grid(int **grid, int height)
 {
 int x;
 
-for (i = 0; i < height; i++)
+for (x = 0; x < height; x++)
 {
-free(grid[i]);
+free(grid[x]);
 }
 free(grid);
 }
