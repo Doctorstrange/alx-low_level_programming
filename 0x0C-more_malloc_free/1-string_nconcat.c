@@ -38,6 +38,7 @@ for (y = 0; x < (strlen(s1) + n); y++)
 t[x] = s2[y];
 x++;
 }
+t[x] = '\0';
 if (t == NULL)
 {
 return (NULL);
