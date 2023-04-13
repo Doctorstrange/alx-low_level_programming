@@ -29,19 +29,19 @@ else
 {
 t = malloc(strlen(s1) + n);
 }
+if (t == NULL)
+{
+return (NULL);
+}
 for (x = 0; x < strlen(s1); x++)
 {
 t[x] = s1[x];
 }
-for (y = 0; x <= (strlen(s1) + n); y++)
+for (y = 0; y < n && s2[y] != '\0'; y++)
 {
 t[x] = s2[y];
 x++;
 }
 t[x] = '\0';
-if (t == NULL)
-{
-return (NULL);
-}
 return (t);
 }
