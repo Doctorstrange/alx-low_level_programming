@@ -15,11 +15,11 @@ unsigned int x, y = 0;
 char *t;
 if (s1 == NULL)
 {
-s1 = " ";
+s1 = "";
 }
 if (s2 == NULL)
 {
-s2 = " ";
+s2 = "";
 }
 if (n >= strlen(s2))
 {
