@@ -33,7 +33,7 @@ for (x = 0; x < strlen(s1); x++)
 {
 t[x] = s1[x];
 }
-for (y = 0; x < (strlen(s1) + n); y++)
+for (y = 0; x <= (strlen(s1) + n); y++)
 {
 t[x] = s2[y];
 x++;
