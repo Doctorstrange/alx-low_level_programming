@@ -2,24 +2,25 @@
 #include <stdarg.h>
 #include "variadic_functions.h"
 /**
- * print_all - prints numbers followed by a new line
- * @format: list of types of arguments passed to the function
- * Return: nothing
+ * print_strings - prints strings, followed by a new line
+ * @separator: string to be printed between the strings
+ * @n: number of strings passed to the function
+ * Return: void
  */
+
 void print_all(const char * const format, ...)
 {
-va_list args;
-const char *p = format;
+ va_list args;
+char *str;
+int i = 0;
 char c;
-int i;
 float f;
-char *s;
 
 va_start(args, format);
 
-while (*p != '\0')
+while (format && format[i])
 {
-switch (*p)
+switch (format[i])
 {
 case 'c':
 c = va_arg(args, int);
@@ -30,29 +31,25 @@ i = va_arg(args, int);
 printf("%d", i);
 break;
 case 'f':
-f = va_arg(args, double);
+f = (float) va_arg(args, double);
 printf("%f", f);
 break;
 case 's':
-s = va_arg(args, char *);
-if (s == NULL)
-printf("(nil)");
-else
-printf("%s", s);
-break;
-default:
+str = va_arg(args, char *);
+if (str)
+{
+printf("%s", str);
 break;
 }
-p++;
-
-if (*p != '\0' && (*p == 'c' || *p == 'i' || *p == 'f' || *p == 's'))
+printf("(nil)");
+break;
+}
+if (format[i + 1] && (format[i] == 'c' || format[i] == 'i' || format[i] == 'f' || format[i] == 's'))
 {
-if (*(p - 1) == 'c' || *(p - 1) == 'i' || *(p - 1) == 'f' || *(p - 1) == 's')
 printf(", ");
 }
+i++;
 }
-
-va_end(args);
-
 printf("\n");
+va_end(args);
 }
