@@ -18,7 +18,7 @@ return (NULL);
 end_node->n = n;
 end_node->next = NULL;
 
-if (*head == NULL)
+if (head == NULL || *head == NULL)
 {
 *head = end_node;
 return (end_node);
