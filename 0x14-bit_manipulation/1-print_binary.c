@@ -6,16 +6,25 @@
  * Return: nothing
  */
 
-void print_binary(unsigned long int n) {
-    unsigned long int x, rep;
+void print_binary(unsigned long int n)
+{
+unsigned long int x = 1;
+unsigned int len = 0;
+if (n == 0)
+{
+putchar('0');
+}
+else {
+while ((n >> len) > 0)
+len++;
 
-    rep = (unsigned long int)1 << (sizeof(unsigned long int) * 8 - 1);
-    for (x = 0; x < sizeof(unsigned long int) * 8; x++) {
-        if (n & rep) {
-            printf("1");
-        } else {
-            printf("0");
-        }
-        rep >>= 1;
-    }
+while (len > 0)
+{
+len--;
+if ((n & (x << len)) > 0)
+putchar('1');
+else
+putchar('0');
+}
+}
 }
