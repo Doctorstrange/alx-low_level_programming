@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "main.h"
+11;rgb:0000/0000/0000#include "main.h"
 /**
  * print_binary - function that prints the binary representation of a number
  * @n: number to derive representation
@@ -14,7 +14,8 @@ if (n == 0)
 {
 putchar('0');
 }
-else {
+else
+{
 while ((n >> len) > 0)
 len++;
 
