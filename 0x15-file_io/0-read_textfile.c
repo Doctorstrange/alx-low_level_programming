@@ -46,5 +46,5 @@ return (0);
 }
 close(fd);
 free(dplace);
-return (writel);
+return (writel + 1);
 }
