@@ -44,7 +44,8 @@ close(fd);
 free(dplace);
 return (0);
 }
+
 close(fd);
 free(dplace);
-return (writel + 1);
+return (writel);
 }
