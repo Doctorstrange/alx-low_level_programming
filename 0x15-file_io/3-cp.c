@@ -19,6 +19,8 @@ char dplace[BUFFER_SIZE];
 const char *file_to = argv[2];
 const char *file_from = argv[1];
 
+struct stat st;
+
 FILE *fp_from;
 FILE *fp_to;
 
@@ -40,6 +42,17 @@ if (fp_to == NULL)
 fprintf(stderr, "Error: Can't write to %s\n", file_to);
 exit(99);
 }
+
+
+if (stat(file_to, &st) != 0)
+{
+if (chmod(file_to, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH) != 0)
+{
+fprintf(stderr, "Error: Failed to set permissions for %s\n", file_to);
+exit(100);
+}
+}
+
 
 while ((br = fread(dplace, 1, sizeof(dplace), fp_from)) > 0)
 {
