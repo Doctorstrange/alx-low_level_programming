@@ -5,7 +5,12 @@
 #include <sys/stat.h>
 
 #define BUFFER_SIZE 1024
-
+/**
+ * main - main function
+ * @argc: number of argument
+ * @argv: index of argument
+ * Return: error code
+ */
 int main(int argc, char *argv[])
 {
 size_t br, bw;
@@ -17,56 +22,52 @@ const char *file_from = argv[1];
 FILE *fp_from;
 FILE *fp_to;
 
-if (argc != 3) 
+if (argc != 3)
 {
- fprintf(stderr, "Usage: %s file_from file_to\n", argv[0]);
+fprintf(stderr, "Usage: %s file_from file_to\n", argv[0]);
 exit(97);
 }
-
-   
 fp_from = fopen(file_from, "r");
 if (fp_from == NULL)
 {
 fprintf(stderr, "Error: Can't read from file %s\n", file_from);
-        exit(98);
+exit(98);
 }
 
 fp_to = fopen(file_to, "w");
 if (fp_to == NULL)
 {
- fprintf(stderr, "Error: Can't write to %s\n", file_to);
-        exit(99);
+fprintf(stderr, "Error: Can't write to %s\n", file_to);
+exit(99);
 }
-
-
 
 while ((br = fread(dplace, 1, sizeof(dplace), fp_from)) > 0)
 {
-   bw = fwrite(dplace, 1, br, fp_to);
-        if (bw < br)
-		{
- fprintf(stderr, "Error: Can't write to %s\n", file_to);
-            exit(99);
-        }
-    }
+bw = fwrite(dplace, 1, br, fp_to);
+if (bw < br)
+{
+fprintf(stderr, "Error: Can't write to %s\n", file_to);
+exit(99);
+}
+}
 
-    if (ferror(fp_from))
-	{
- fprintf(stderr, "Error: Can't read from file %s\n", file_from);
-        exit(98);
-    }
+if (ferror(fp_from))
+{
+fprintf(stderr, "Error: Can't read from file %s\n", file_from);
+exit(98);
+}
 
-    if (fclose(fp_from) != 0)
-	{
-	  fprintf(stderr, "Error: Can't close fd %p\n", (void *)fp_from);
-        exit(100);
-    }
+if (fclose(fp_from) != 0)
+{
+fprintf(stderr, "Error: Can't close fd %p\n", (void *)fp_from);
+exit(100);
+}
 
-    if (fclose(fp_to) != 0)
-	{
-	  fprintf(stderr, "Error: Can't close fd %p\n", (void *)fp_to);
-        exit(100);
-    }
+if (fclose(fp_to) != 0)
+{
+fprintf(stderr, "Error: Can't close fd %p\n", (void *)fp_to);
+exit(100);
+}
 
-    return 0;
+return (0);
 }
