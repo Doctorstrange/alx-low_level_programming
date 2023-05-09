@@ -3,82 +3,82 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <errno.h>
 
 #define BUFFER_SIZE 1024
 
-void error(char *str, const char *message, int code)
+/**
+ * copy_con - copies the content of a file to another file
+ * @file_from: file to copy from
+ * @file_to: file to copy to
+ */
+
+void copy_con(const char *file_from, const char *file_to)
 {
-dprintf(STDERR_FILENO, "%s %s\n", str, message);
-exit(code);
+    int fd_from, fd_to, br, bw;
+    char buffer[BUFFER_SIZE];
+
+    fd_from = open(file_from, O_RDONLY);
+    if (fd_from == -1)
+    {
+        fprintf(stderr, "Error: Can't read from file %s\n", file_from);
+        exit(98);
+    }
+
+    fd_to = open(file_to, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH, O_WRONLY | O_CREAT | O_TRUNC );
+    if (fd_to == -1)
+    {
+        fprintf(stderr, "Error: Can't write to %s\n", file_to);
+        exit(99);
+    }
+
+    while ((br = read(fd_from, buffer, BUFFER_SIZE)) > 0)
+    {
+        bw = write(fd_to, buffer, br);
+        if (bw == -1) {
+            fprintf(stderr, "Error: Can't write to %s\n", file_to);
+            exit(99);
+        }
+    }
+
+    if (br == -1)
+    {
+        fprintf(stderr, "Error: Can't read from file %s\n", file_from);
+        exit(98);
+    }
+
+    if (close(fd_from) == -1)
+    {
+        fprintf(stderr, "Error: Can't close fd %d\n", fd_from);
+        exit(100);
+    }
+    if (close(fd_to) == -1)
+    {
+        fprintf(stderr, "Error: Can't close fd %d\n", fd_to);
+        exit(100);
+    }
+
+    if (chmod(file_to, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) == -1)
+    {
+        fprintf(stderr, "Error: Can't set permissions of the file\n");
+        exit(99);
+    }
+
+    printf("File successfully copied from %s to %s\n", file_from, file_to);
 }
 
 int main(int argc, char *argv[])
 {
-size_t br, bw;
-char dplace[BUFFER_SIZE];
-char str;
-char *msg;
-
- const char *file_to;
- const char *file_from;
-FILE *fp_from;
-FILE *fp_to;
-
-msg = &str;
-
-
-file_to = argv[2];
-file_from = argv[1];
-if (argc != 3)
-{
-msg = "Usage: cp file_from ";
-error(msg, file_to, 97);
-}
-
-
-fp_from = fopen(file_from, "r");
-if (fp_from == NULL)
-{
-msg = "Error: Can't read from file ";
-error(msg, file_from, 98);
-}
-
-fp_to = fopen(file_to, "w");
-if (fp_to == NULL)
-{
-msg = "Can't write to ";
-error(msg, file_to, 99);
-}
-
-
-
-while ((br = fread(dplace, 1, sizeof(dplace), fp_from)) > 0)
-{
-   bw = fwrite(dplace, 1, br, fp_to);
-        if (bw < br)
-		{
-msg = "Can't write to ";
-error(msg, file_to, 99);
-        }
+    if (argc != 3)
+    {
+        fprintf(stderr, "Usage: %s file_from file_to\n", argv[0]);
+        exit(97);
     }
 
-    if (ferror(fp_from))
-        {
-      msg = "Error: Can't close fd ";
-error(msg, file_from, 100);
-    }
-
-    if (fclose(fp_from) != 0)
-        {
-      msg = "Error: Can't close fd ";
-error(msg, file_from, 100);
-    }
-
-    if (fclose(fp_to) != 0)
-        {
-       msg = "Error: Can't close fd ";
-error(msg, file_from, 100);
-    }
+    const char *file_from = argv[1];
+    const char *file_to = argv[2];
+    copy_con(file_from, file_to);
 
     return 0;
 }
