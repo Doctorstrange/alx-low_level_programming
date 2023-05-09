@@ -70,14 +70,16 @@ void copy_con(const char *file_from, const char *file_to)
 
 int main(int argc, char *argv[])
 {
-    if (argc != 3)
+  const char *file_from;
+  const char *file_to;
+  if (argc != 3)
     {
         fprintf(stderr, "Usage: %s file_from file_to\n", argv[0]);
         exit(97);
     }
 
-    const char *file_from = argv[1];
-    const char *file_to = argv[2];
+  file_from = argv[1];
+  file_to = argv[2];
     copy_con(file_from, file_to);
 
     return 0;
