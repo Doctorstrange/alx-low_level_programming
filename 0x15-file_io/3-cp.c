@@ -29,12 +29,13 @@ char *create_buffer(char *file)
 }
 
 /**
- * close_file - Closes file descriptors.
+ * close_w_error - Closes file descriptors.
  * @fd: The file descriptor to be closed.
+ * Return: nothing
  */
 void close_w_error(int fd)
 {
-  int x;
+int x;
 x = close(fd);
 
 if (x == -1)
@@ -74,14 +75,13 @@ exit(97);
 fd_from = open(argv[1], O_RDONLY);
 if (fd_from == -1)
 {
-dprintf(STDERR_FILENO,"Error: Can't read from file %s\n", argv[1]);
+dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 exit(98);
 }
-
- fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 if (fd_to == -1)
 {
-dprintf(STDERR_FILENO,"Error: Can't write to %s\n", argv[2]);
+dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 exit(99);
 }
 
@@ -91,7 +91,7 @@ while (read_bytes > 0)
 {
 write(fd_to, dplace, read_bytes);
 read_bytes = read(fd_from, dplace, 1024);
- fd_to = open(argv[2], O_WRONLY | O_APPEND);
+fd_to = open(argv[2], O_WRONLY | O_APPEND);
 }
 
 	free(dplace);
