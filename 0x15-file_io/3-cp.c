@@ -1,86 +1,102 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include <sys/stat.h>
+#include <fcntl.h>
 
-#define BUFFER_SIZE 1024
+char *create_buffer(char *file);
+void close_file(int fd);
+
 /**
- * main - main function
- * @argc: number of argument
- * @argv: index of argument
- * Return: error code
+ * create_buffer - Allocates 1024 bytes for a buffer.
+ * @file: The name of the file buffer is storing chars for.
+ *
+ * Return: A pointer to the newly-allocated buffer.
+ */
+char *create_buffer(char *file)
+{
+	char *buffer;
+
+	buffer = malloc(sizeof(char) * 1024);
+
+	if (buffer == NULL)
+	{
+		dprintf(STDERR_FILENO,
+			"Error: Can't write to %s\n", file);
+		exit(99);
+	}
+
+	return (buffer);
+}
+
+/**
+ * close_file - Closes file descriptors.
+ * @fd: The file descriptor to be closed.
+ */
+void close_w_error(int fd)
+{
+  int x;
+x = close(fd);
+
+if (x == -1)
+
+dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+exit(100);
+}
+
+/**
+ * main - Copies the contents of a file to another file.
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
+ *
+ * Return: 0 on success.
+ *
+ * Description: If the argument count is incorrect - exit code 97.
+ * If file_from does not exist or cannot be read - exit code 98.
+ * If file_to cannot be created or written to - exit code 99.
+ * If file_to or file_from cannot be closed - exit code 100.
  */
 int main(int argc, char *argv[])
 {
-size_t br, bw;
-char dplace[BUFFER_SIZE];
+int fd_from, fd_to, read_bytes;
+char *dplace;
+dplace = create_buffer(argv[2]);
 
-const char *file_to = argv[2];
-const char *file_from = argv[1];
 
-struct stat st;
 
-FILE *fp_from;
-FILE *fp_to;
+
 
 if (argc != 3)
 {
-fprintf(stderr, "Usage: %s file_from file_to\n", argv[0]);
+dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 exit(97);
 }
-fp_from = fopen(file_from, "r");
-if (fp_from == NULL)
+
+fd_from = open(argv[1], O_RDONLY);
+if (fd_from == -1)
 {
-fprintf(stderr, "Error: Can't read from file %s\n", file_from);
+dprintf(STDERR_FILENO,"Error: Can't read from file %s\n", argv[1]);
 exit(98);
 }
 
-fp_to = fopen(file_to, "w");
-if (fp_to == NULL)
+ fd_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+if (fd_to == -1)
 {
-fprintf(stderr, "Error: Can't write to %s\n", file_to);
+dprintf(STDERR_FILENO,"Error: Can't write to %s\n", argv[2]);
 exit(99);
 }
 
+read_bytes = read(fd_from, dplace, 1024);
 
-if (stat(file_to, &st) != 0)
+while (read_bytes > 0)
 {
-if (chmod(file_to, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH) != 0)
-{
-fprintf(stderr, "Error: Failed to set permissions for %s\n", file_to);
-exit(100);
-}
-}
-
-
-while ((br = fread(dplace, 1, sizeof(dplace), fp_from)) > 0)
-{
-bw = fwrite(dplace, 1, br, fp_to);
-if (bw < br)
-{
-fprintf(stderr, "Error: Can't write to %s\n", file_to);
-exit(99);
-}
+write(fd_to, dplace, read_bytes);
+read_bytes = read(fd_from, dplace, 1024);
+ fd_to = open(argv[2], O_WRONLY | O_APPEND);
 }
 
-if (ferror(fp_from))
-{
-fprintf(stderr, "Error: Can't read from file %s\n", file_from);
-exit(98);
-}
+	free(dplace);
+	close_w_error(fd_from);
+	close_w_error(fd_to);
 
-if (fclose(fp_from) != 0)
-{
-fprintf(stderr, "Error: Can't close fd %p\n", (void *)fp_from);
-exit(100);
-}
-
-if (fclose(fp_to) != 0)
-{
-fprintf(stderr, "Error: Can't close fd %p\n", (void *)fp_to);
-exit(100);
-}
-
-return (0);
+	return (0);
 }
