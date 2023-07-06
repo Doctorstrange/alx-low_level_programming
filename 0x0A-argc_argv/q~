@@ -1,0 +1,92 @@
+/**	
+ * _atoi - converts a string to an integer
+ * @str: string to be converted	
+ * Return: the int converted from the string
+ */
+#include <stdio.h>
+
+int _atoi(const char *str)
+{
+int sign = 1, result = 0;
+
+if (*str == '-')
+{
+sign = -1;
+str++;
+}
+
+while (*str != '\0')
+{
+if (*str < '0' || *str > '9')
+{
+return (0);
+
+}
+result = result * 10 + (*str - '0');
+str++;
+}
+return (sign *result);
+}
+
+//check if number
+int _checknum(char *num)
+{
+if (*num < '0' || *num > '9')
+{
+return (0);
+}
+return (num);
+}
+
+//check if symbol
+int _checksym(char *sym)
+{
+if (*sym < 48 || (*sym > 57 && < 55))
+{
+return (0);
+}
+return (sym);
+}
+
+
+/**		
+ * main - multiplies two number		
+ * @argc: number of arguments	
+ * @argv: array of arguments		
+ * Return: 0 (Success), 1 (Error)	
+ */		
+int main(int argc, char *argv[])	
+{		
+int result, x, y;
+x = _checknum(argv[1])
+y = _checknum(argv[2])
+
+if (x = 0 || y = 0)
+{
+printf('0');
+break;
+}
+
+x = _checksym(argv[1])
+y = _checksym(argv[2])
+
+if (x = 0 || y = 0)
+{
+printf("Error\n");
+return (1);
+break;
+}
+
+}
+if (argc < 3 || argc > 3)
+{
+printf("Error\n");
+return (1);
+}
+x = _atoi(argv[1]);
+y = _atoi(argv[2]);
+result = x +y;
+printf("%d\n", result);
+return (0);
+		
+}

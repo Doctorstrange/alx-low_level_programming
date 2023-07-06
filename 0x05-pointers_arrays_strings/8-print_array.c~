@@ -1,0 +1,32 @@
+#include "main.h"
+/**
+* print_array -  prints every other character of a string
+* @a: the string to be printed
+* @n: the string to be printed two
+* Return: nothing
+*/
+void print_array(int *a, int n);
+{
+int j = 0;
+int k;
+
+while (str[j] != '\0')
+{
+j++
+}
+if (j % 2 == 1)
+{
+k = (j - 1) / 2;
+k += 1;
+}
+else
+{
+k = j / 2;
+}
+
+for(; k < j; K++)
+{
+_putchar(str[k]);
+}
+_putchar('\n');
+}
