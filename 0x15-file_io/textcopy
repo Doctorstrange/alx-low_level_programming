@@ -1,0 +1,43 @@
+fdopen()
+       The  fdopen()  function associates a stream with the existing file descriptor, fd.
+       The mode of the stream (one of the values "r", "r+", "w", "w+", "a", "a+") must be
+       compatible  with  the mode of the file descriptor.  The file position indicator of
+       the new stream is set to that belonging to fd, and the error and end-of-file indi‐
+       cators  are  cleared.  Modes "w" or "w+" do not cause truncation of the file.  The
+       file descriptor is not dup'ed, and will be  closed  when  the  stream  created  by
+       fdopen()  is closed.  The result of applying fdopen() to a shared memory object is
+       undefined.
+
+   freopen()
+       The freopen() function opens the file whose name is the string pointed to by path‐
+       name  and associates the stream pointed to by stream with it.  The original stream
+       (if it exists) is closed.  The mode argument is used just as in the fopen()  func‐
+       tion.
+
+       If  the  pathname  argument  is  a null pointer, freopen() changes the mode of the
+       stream to that specified in mode; that is, freopen() reopens the pathname that  is
+       associated  with the stream.  The specification for this behavior was added in the
+       C99 standard, which says:
+
+              In this case, the file descriptor associated with the stream  need  not  be
+              closed  if  the  call  to freopen() succeeds.  It is implementation-defined
+              which changes of mode are permitted (if any), and under what circumstances.
+
+       The primary use of the freopen() function is to change the file associated with  a
+       standard text stream (stderr, stdin, or stdout).
+
+RETURN VALUE
+       Upon successful completion fopen(), fdopen(), and freopen() return a FILE pointer.
+       Otherwise, NULL is returned and errno is set to indicate the error.
+
+ERRORS
+       EINVAL The mode provided to fopen(), fdopen(), or freopen() was invalid.
+
+       The fopen(), fdopen(), and freopen() functions may also fail and set errno for any
+       of the errors specified for the routine malloc(3).
+
+       The  fopen()  function may also fail and set errno for any of the errors specified
+       for the routine open(2).
+
+       The fdopen() function may also fail and set errno for any of the errors  specified
+ Manual page fopen(3) line 94 (press h for help or q to quit)
