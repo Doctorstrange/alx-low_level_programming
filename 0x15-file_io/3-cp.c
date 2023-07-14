@@ -59,7 +59,7 @@ exit(100);
  */
 int main(int argc, char *argv[])
 {
-int fd_from, fd_to, read_bytes;
+	int fd_from, fd_to, read_bytes, write_byte;
 char *dplace;
 dplace = create_buffer(argv[2]);
 
@@ -92,14 +92,17 @@ if (read_bytes == -1)
 dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 exit(98);
 }
-
 while (read_bytes > 0)
 {
-write(fd_to, dplace, read_bytes);
+write_byte = write(fd_to, dplace, read_bytes);
+if (write_byte == -1)
+{
+dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+exit(99);
+}
 read_bytes = read(fd_from, dplace, 1024);
 fd_to = open(argv[2], O_WRONLY | O_APPEND);
 }
-
 	free(dplace);
 	close_w_error(fd_from);
 	close_w_error(fd_to);
