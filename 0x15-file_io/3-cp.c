@@ -87,6 +87,11 @@ exit(99);
 }
 
 read_bytes = read(fd_from, dplace, 1024);
+if (read_bytes == -1)
+{
+dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+exit(98);
+}
 
 while (read_bytes > 0)
 {
