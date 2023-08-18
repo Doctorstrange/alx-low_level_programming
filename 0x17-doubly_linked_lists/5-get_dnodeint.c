@@ -13,23 +13,21 @@
 dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index)
 {
 	size_t place = 0;
-	dlistint_t *temphead;
 
 	if (head == NULL)
 	{
 		return (NULL);
 	}
 
-	temphead = head;
 	while (place < index && head != NULL)
 	{
 		if (place == index)
 		{
 			return (head);
 		}
-		else if (temphead->next == NULL || head == NULL)
+		else if (head->next == NULL || head == NULL)
 			return (NULL);
-		head = temphead->next;
+		head = head->next;
 		place++;
 	}
 
