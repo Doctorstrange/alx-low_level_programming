@@ -4,6 +4,10 @@ perimeter of the island described in grid"""
 
 
 def island_perimeter(grid):
+    """function def island_perimeter(grid): that returns the
+    perimeter of the island described in grid
+    Returns: perimeter of island
+    """
     length = len(grid[0])
     breath = len(grid)
     perimeter = 0
